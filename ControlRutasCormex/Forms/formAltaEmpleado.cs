@@ -103,6 +103,9 @@ namespace ControlRutasCormex.Forms
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+
+
+                
             if (!ValidarCampos())
                 return;
 
