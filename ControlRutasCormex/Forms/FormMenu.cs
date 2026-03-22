@@ -15,6 +15,7 @@ namespace ControlRutasCormex
         {
 
         }
+        #region botones de control de ventana
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
@@ -47,7 +48,14 @@ namespace ControlRutasCormex
 
         private void btnMinimizar_Click(object sender, EventArgs e)
         {
-            this.WindowState=FormWindowState.Minimized;
+            this.WindowState = FormWindowState.Minimized;
+        }
+        #endregion
+        private void btnAltaEmpleados_Click(object sender, EventArgs e)
+        {
+            formAltaEmpleado formAltaEmpleado = new formAltaEmpleado();
+            formAltaEmpleado.ShowDialog();
+            
         }
     }
 }

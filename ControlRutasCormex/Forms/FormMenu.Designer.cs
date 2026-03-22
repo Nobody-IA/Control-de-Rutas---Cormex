@@ -295,6 +295,7 @@
             btnAltaEmpleados.Text = "Alta Empleados";
             btnAltaEmpleados.TextAlign = ContentAlignment.MiddleRight;
             btnAltaEmpleados.UseVisualStyleBackColor = false;
+            btnAltaEmpleados.Click += btnAltaEmpleados_Click;
             // 
             // pictureBox1
             // 

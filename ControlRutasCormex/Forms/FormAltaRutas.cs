@@ -53,7 +53,7 @@ namespace ControlRutasCormex.Forms
 
                     MessageBox.Show("Error al cargar ciudades: " + ex.Message);
                 }
-                
+
             }
 
         }
@@ -97,9 +97,60 @@ namespace ControlRutasCormex.Forms
         private bool ValidarCampos()
         {
             //validar que se haya seleccionado una ciudad
+            if (cmbCiudad.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione una ciudad");
+                cmbCiudad.Focus();
+                return false;
+            }
             //validar nombre de la ruta
+            if (string.IsNullOrWhiteSpace(txtNombreRuta.Text))
+            {
+                MessageBox.Show("Ingrese el nombre de la ruta");
+                txtNombreRuta.Focus();
+                return false;
+            }
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtNombreRuta.Text, @"^[a-zA-Z0-9]+$"))
+            {
+                MessageBox.Show("Solo caracteres alfanuméricos");
+                return false;
+            }
             //validar tipo de ruta
-            //validar 
+            if (cmbTipo.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione el tipo de ruta");
+                cmbTipo.Focus();
+                return false;
+            }
+
+            //validar chofer
+            if (cmbChofer.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione un chofer");
+                cmbChofer.Focus();
+                return false;
+            }
+
+            //validar capacidad
+            if (!int.TryParse(txtCapacidad.Text, out int capacidad) || capacidad <= 0)
+            {
+                MessageBox.Show("Capacidad inválida");
+                return false;
+            }
+
+            if (cmbTipo.SelectedIndex == 0 && capacidad > 34)
+            {
+                MessageBox.Show("Máximo 34 para Personal");
+                return false;
+            }
+
+            if (cmbTipo.SelectedIndex == 1 && capacidad > 100)
+            {
+                MessageBox.Show("Máximo 100 para Artículos");
+                return false;
+            }
+
+
             return true;
         }
         private void cmbCiudad_SelectedIndexChanged(object sender, EventArgs e)
@@ -110,5 +161,48 @@ namespace ControlRutasCormex.Forms
             }
         }
 
+        private void txtCapacidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validacion vali = new Validacion();
+            e.KeyChar = Convert.ToChar(vali.SoloNumeros(e.KeyChar));
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if (!ValidarCampos())
+                return;
+
+            using (var conexion = new Conexion().ObtenerConexion())
+            {
+                conexion.Open();
+
+                SqlCommand cmd = new SqlCommand("InsertarRuta", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@NombreRuta", txtNombreRuta.Text);
+                cmd.Parameters.AddWithValue("@Tipo", cmbTipo.SelectedIndex + 1);
+                cmd.Parameters.AddWithValue("@Capacidad", int.Parse(txtCapacidad.Text));
+                cmd.Parameters.AddWithValue("@IdCiudad", cmbCiudad.SelectedValue);
+                cmd.Parameters.AddWithValue("@IdEmpleado", cmbChofer.SelectedValue);
+
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Ruta guardada correctamente");
+            }
+
+            LimpiarCampos();
+        }
+
+        private void LimpiarCampos()
+        {
+            cmbCiudad.SelectedIndex = -1;
+            cmbTipo.SelectedIndex = -1;
+            cmbChofer.DataSource = null;
+
+            txtNombreRuta.Clear();
+            txtCapacidad.Clear();
+
+            cmbCiudad.Focus();
+        }
     }
 }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Collections.Specialized.BitVector32;
 
 namespace ControlRutasCormex.Forms
 {
@@ -23,14 +24,14 @@ namespace ControlRutasCormex.Forms
         {
             CargarCiudades();
             // restar 18 años a la fecha actual para que nadie menor pueda poner su fecha 
-            dtpFechaNacimiento.MaxDate = DateTime.Today.AddDays(-18);
+            dtpFechaNacimiento.MaxDate = DateTime.Today;
         }
         private void CargarCiudades()
         {
             using (var conexion = new Conexion().ObtenerConexion())
             {
                 conexion.Open();
-                
+
                 string query = "SELECT IdCiudad, Nombre FROM Ciudades";
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -79,6 +80,7 @@ namespace ControlRutasCormex.Forms
             if (!int.TryParse(txtSueldo.Text, out _))
             {
                 MessageBox.Show("El sueldo debe ser numérico");
+                txtSueldo.Focus();
                 return false;
             }
 
@@ -105,24 +107,35 @@ namespace ControlRutasCormex.Forms
         {
 
 
-                
+            try
+            {
+                using (var conexion = new Conexion().ObtenerConexion())
+                {
+                    conexion.Open();
+
+                    SqlCommand cmd = new SqlCommand("InsertarEmpleado", conexion);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Nombre", txtNombre.Text);
+                    cmd.Parameters.AddWithValue("@ApellidoPaterno", txtApPaterno.Text);
+                    cmd.Parameters.AddWithValue("@ApellidoMaterno", txtApMaterno.Text);
+                    cmd.Parameters.AddWithValue("@FechaNacimiento", dtpFechaNacimiento.Value);
+                    cmd.Parameters.AddWithValue("@Sueldo", decimal.Parse(txtSueldo.Text));
+                    cmd.Parameters.AddWithValue("@IdCiudad", cmbCiudad.SelectedValue);
+
+                    var id = cmd.ExecuteScalar();
+
+                    MessageBox.Show("Empleado guardado. ID: " + id);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar ciudades: " + ex.Message);
+            }
+
             if (!ValidarCampos())
                 return;
 
-            using (var conexion = new Conexion().ObtenerConexion())
-            {
-                conexion.Open();
-                string query = "INSERT INTO Empleados (IdCiudad, Nombre, FechaNacimiento, Sueldo) VALUES (@IdCiudad, @Nombre, @FechaNacimiento, @Sueldo)";
-                SqlCommand cmd = new SqlCommand(query, conexion);
-                cmd.Parameters.AddWithValue("@IdCiudad", cmbCiudad.SelectedValue);
-                cmd.Parameters.AddWithValue("@Nombre", txtNombre.Text);
-                cmd.Parameters.AddWithValue("@FechaNacimiento", dtpFechaNacimiento.Value);
-                cmd.Parameters.AddWithValue("@Sueldo", decimal.Parse(txtSueldo.Text));
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Empleado registrado exitosamente");
-                this.Close();
-
-            }
             LimpiarCampos();
         }
         private void LimpiarCampos()
@@ -132,7 +145,7 @@ namespace ControlRutasCormex.Forms
             txtApPaterno.Clear();
             txtApMaterno.Clear();
             txtSueldo.Clear();
-            dtpFechaNacimiento.Value = DateTime.Now;
+
 
             cmbCiudad.Focus();
         }
@@ -150,6 +163,12 @@ namespace ControlRutasCormex.Forms
             {
                 this.Close();
             }
+        }
+
+        private void txtSueldo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validacion vali = new Validacion();
+            e.KeyChar = Convert.ToChar(vali.SoloNumeros(e.KeyChar));
         }
     }
 }

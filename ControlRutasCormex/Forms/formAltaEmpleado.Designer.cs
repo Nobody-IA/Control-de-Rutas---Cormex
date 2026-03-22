@@ -93,6 +93,7 @@
             cmbCiudad.Name = "cmbCiudad";
             cmbCiudad.Size = new Size(155, 27);
             cmbCiudad.TabIndex = 2;
+            cmbCiudad.Text = "Seleccione";
             // 
             // label1
             // 
@@ -181,6 +182,7 @@
             txtSueldo.Name = "txtSueldo";
             txtSueldo.Size = new Size(91, 19);
             txtSueldo.TabIndex = 11;
+            txtSueldo.KeyPress += txtSueldo_KeyPress;
             // 
             // label5
             // 

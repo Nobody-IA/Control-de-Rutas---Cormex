@@ -106,6 +106,7 @@
             cmbCiudad.Name = "cmbCiudad";
             cmbCiudad.Size = new Size(155, 27);
             cmbCiudad.TabIndex = 3;
+            cmbCiudad.Text = "Seleccione";
             cmbCiudad.SelectedIndexChanged += cmbCiudad_SelectedIndexChanged;
             // 
             // label1
@@ -125,7 +126,7 @@
             txtNombreRuta.BorderStyle = BorderStyle.None;
             txtNombreRuta.Font = new Font("Consolas", 12F);
             txtNombreRuta.Location = new Point(184, 149);
-            txtNombreRuta.MaxLength = 15;
+            txtNombreRuta.MaxLength = 155;
             txtNombreRuta.Name = "txtNombreRuta";
             txtNombreRuta.Size = new Size(155, 19);
             txtNombreRuta.TabIndex = 7;
@@ -151,6 +152,7 @@
             cmbTipo.Name = "cmbTipo";
             cmbTipo.Size = new Size(155, 27);
             cmbTipo.TabIndex = 8;
+            cmbTipo.Text = "Seleccione";
             // 
             // label3
             // 
@@ -173,6 +175,7 @@
             cmbChofer.Name = "cmbChofer";
             cmbChofer.Size = new Size(155, 27);
             cmbChofer.TabIndex = 10;
+            cmbChofer.Text = "Seleccione";
             // 
             // label4
             // 
@@ -212,6 +215,7 @@
             btnGuardar.TabIndex = 16;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = false;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // txtCapacidad
             // 
@@ -223,6 +227,7 @@
             txtCapacidad.Name = "txtCapacidad";
             txtCapacidad.Size = new Size(74, 19);
             txtCapacidad.TabIndex = 18;
+            txtCapacidad.KeyPress += txtCapacidad_KeyPress;
             // 
             // label5
             // 
