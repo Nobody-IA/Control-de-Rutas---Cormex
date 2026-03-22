@@ -59,6 +59,7 @@
             BarraTitulo.Name = "BarraTitulo";
             BarraTitulo.Size = new Size(520, 37);
             BarraTitulo.TabIndex = 1;
+            BarraTitulo.MouseDown += BarraTitulo_MouseDown;
             // 
             // Choferes
             // 

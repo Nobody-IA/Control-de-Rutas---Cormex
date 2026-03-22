@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -41,30 +42,8 @@ namespace ControlRutasCormex.Forms
         #endregion
         private void CargarCiudades()
         {
-            using (var conexion = new Conexion().ObtenerConexion())
-            {
-                try
-                {
-                    conexion.Open();
-                    string query = "SELECT IdCiudad, Nombre FROM Ciudades ORDER BY Nombre ASC";
-                    SqlCommand cmd = new SqlCommand(query, conexion);
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    DataTable dt = new DataTable();
-                    dt.Load(reader);
-
-                    cmbCiudad.DataSource = dt;
-                    cmbCiudad.DisplayMember = "Nombre";
-                    cmbCiudad.ValueMember = "IdCiudad";
-
-
-                    cmbCiudad.SelectedIndex = -1;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
-            }
+            string query = "SELECT IdCiudad, Nombre FROM Ciudades ORDER BY Nombre ASC";
+            ConsultasBase.LlenarComboBox(cmbCiudad, query, "Nombre", "IdCiudad");
         }
 
 
@@ -196,6 +175,18 @@ namespace ControlRutasCormex.Forms
 
         }
 
+        #region mover formulario
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private static extern void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void BarraTitulo_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+        #endregion
+
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             var resultado = MessageBox.Show(
@@ -210,5 +201,7 @@ namespace ControlRutasCormex.Forms
                 this.Close();
             }
         }
+
+
     }
 }
