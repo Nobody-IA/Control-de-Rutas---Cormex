@@ -82,10 +82,12 @@
             btnCerrar.SizeMode = PictureBoxSizeMode.Zoom;
             btnCerrar.TabIndex = 5;
             btnCerrar.TabStop = false;
+            btnCerrar.Click += btnCerrar_Click;
             // 
             // cmbCiudad
             // 
             cmbCiudad.BackColor = SystemColors.InactiveBorder;
+            cmbCiudad.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCiudad.FlatStyle = FlatStyle.Flat;
             cmbCiudad.Font = new Font("Consolas", 12F);
             cmbCiudad.FormattingEnabled = true;
@@ -93,7 +95,7 @@
             cmbCiudad.Name = "cmbCiudad";
             cmbCiudad.Size = new Size(155, 27);
             cmbCiudad.TabIndex = 2;
-            cmbCiudad.Text = "Seleccione";
+            cmbCiudad.SelectedIndexChanged += cmbCiudad_SelectedIndexChanged;
             // 
             // label1
             // 

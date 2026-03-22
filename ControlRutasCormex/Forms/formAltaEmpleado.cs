@@ -23,30 +23,50 @@ namespace ControlRutasCormex.Forms
         private void formAltaEmpleado_Load(object sender, EventArgs e)
         {
             CargarCiudades();
-            // restar 18 años a la fecha actual para que nadie menor pueda poner su fecha 
-            dtpFechaNacimiento.MaxDate = DateTime.Today;
+            ConfigurarPlaceholder();
+
         }
+        #region Placeholder
+
+        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+        private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lParam);
+
+        const int CB_SETCUEBANNER = 0x1703; // Código para poner el texto sugerido
+
+        private void ConfigurarPlaceholder()
+        {
+            // Texto Fantasma para los ComboBox
+            SendMessage(cmbCiudad.Handle, CB_SETCUEBANNER, 0, "Seleccione");
+        }
+        #endregion
         private void CargarCiudades()
         {
             using (var conexion = new Conexion().ObtenerConexion())
             {
-                conexion.Open();
+                try
+                {
+                    conexion.Open();
+                    string query = "SELECT IdCiudad, Nombre FROM Ciudades ORDER BY Nombre ASC";
+                    SqlCommand cmd = new SqlCommand(query, conexion);
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                string query = "SELECT IdCiudad, Nombre FROM Ciudades";
-                SqlCommand cmd = new SqlCommand(query, conexion);
-                SqlDataReader reader = cmd.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
 
-                DataTable dt = new DataTable();
-                dt.Load(reader);
+                    cmbCiudad.DataSource = dt;
+                    cmbCiudad.DisplayMember = "Nombre";
+                    cmbCiudad.ValueMember = "IdCiudad";
 
-                cmbCiudad.DataSource = dt;
-                cmbCiudad.DisplayMember = "Nombre";
-                cmbCiudad.ValueMember = "IdCiudad";
 
-                cmbCiudad.SelectedIndex = -1; // "Seleccione"
+                    cmbCiudad.SelectedIndex = -1;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
             }
-
         }
+
 
         private bool ValidarCampos()
         {
@@ -130,7 +150,7 @@ namespace ControlRutasCormex.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar ciudades: " + ex.Message);
+                MessageBox.Show("Error al guardar empleado" + ex.Message);
             }
 
             if (!ValidarCampos())
@@ -145,7 +165,7 @@ namespace ControlRutasCormex.Forms
             txtApPaterno.Clear();
             txtApMaterno.Clear();
             txtSueldo.Clear();
-
+            dtpFechaNacimiento.Value = DateTime.Now;
 
             cmbCiudad.Focus();
         }
@@ -169,6 +189,26 @@ namespace ControlRutasCormex.Forms
         {
             Validacion vali = new Validacion();
             e.KeyChar = Convert.ToChar(vali.SoloNumeros(e.KeyChar));
+        }
+
+        private void cmbCiudad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show(
+            "¿Desea salir?",
+            "Confirmar",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question
+            );
+
+            if (resultado == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
     }
 }

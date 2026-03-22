@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,9 +24,22 @@ namespace ControlRutasCormex.Forms
         {
             CargarCiudades();
             CargarTipo();
-
+            ConfigurarPlaceholder();
         }
+        #region Placeholder
+        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+        private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lParam);
 
+        const int CB_SETCUEBANNER = 0x1703; // Código para poner el texto sugerido
+
+        private void ConfigurarPlaceholder()
+        {
+            // Texto Fantasma para los ComboBox
+            SendMessage(cmbCiudad.Handle, CB_SETCUEBANNER, 0, "Seleccione");
+            SendMessage(cmbChofer.Handle, CB_SETCUEBANNER, 0, "Seleccione");
+            SendMessage(cmbTipo.Handle, CB_SETCUEBANNER, 0, "Seleccione");
+        }
+        #endregion
         #region Métodos de carga
         private void CargarCiudades()
         {
@@ -34,8 +48,7 @@ namespace ControlRutasCormex.Forms
                 try
                 {
                     conexion.Open();
-
-                    string query = "SELECT IdCiudad, Nombre FROM Ciudades";
+                    string query = "SELECT IdCiudad, Nombre FROM Ciudades ORDER BY Nombre ASC";
                     SqlCommand cmd = new SqlCommand(query, conexion);
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -46,16 +59,14 @@ namespace ControlRutasCormex.Forms
                     cmbCiudad.DisplayMember = "Nombre";
                     cmbCiudad.ValueMember = "IdCiudad";
 
-                    cmbCiudad.SelectedIndex = -1; // "Seleccione"
+
+                    cmbCiudad.SelectedIndex = -1;
                 }
                 catch (Exception ex)
                 {
-
-                    MessageBox.Show("Error al cargar ciudades: " + ex.Message);
+                    MessageBox.Show("Error: " + ex.Message);
                 }
-
             }
-
         }
 
         private void CargarTipo()
@@ -69,27 +80,48 @@ namespace ControlRutasCormex.Forms
 
         private void CargarChoferes(int idCiudad)
         {
+            // Limpiamos antes de empezar
+            cmbChofer.DataSource = null;
+            cmbChofer.Items.Clear();
+
             using (var conexion = new Conexion().ObtenerConexion())
             {
-                conexion.Open();
-
-                string query = @"SELECT IdEmpleado, Nombre + ' ' + ApellidoPaterno AS NombreCompleto 
-                         FROM Empleados 
-                         WHERE IdCiudad = @IdCiudad AND Activo = 1";
-
-                SqlCommand cmd = new SqlCommand(query, conexion);
-                cmd.Parameters.AddWithValue("@IdCiudad", idCiudad);
-
-                SqlDataReader reader = cmd.ExecuteReader();
-                DataTable dt = new DataTable();
-                dt.Load(reader);
-
-                if (dt.Rows.Count == 0)
+                try
                 {
-                    MessageBox.Show("No hay choferes Disponibles en esta ciudad");
+                    conexion.Open();
+
+                    // Modificamos el query: "(ID) Nombre Apellido"
+                    // Usamos CAST para convertir el número a texto y poder pegarlo
+                    string query = @"SELECT IdEmpleado, 
+                             '(' + CAST(IdEmpleado AS VARCHAR) + ') ' + Nombre + ' ' + ApellidoPaterno AS NombreIdentificado 
+                             FROM Empleados 
+                             WHERE IdCiudad = @IdCiudad AND Activo = 1 
+                             ORDER BY Nombre ASC";
+
+                    SqlCommand cmd = new SqlCommand(query, conexion);
+                    cmd.Parameters.AddWithValue("@IdCiudad", idCiudad);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        cmbChofer.DataSource = dt;
+                        // Usamos el nuevo alias "NombreIdentificado"
+                        cmbChofer.DisplayMember = "NombreIdentificado";
+                        cmbChofer.ValueMember = "IdEmpleado";
+                        cmbChofer.SelectedIndex = -1;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No hay choferes en esta ciudad.");
+                    }
                 }
-
-
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al cargar choferes: " + ex.Message);
+                }
             }
         }
         #endregion
@@ -110,7 +142,7 @@ namespace ControlRutasCormex.Forms
                 txtNombreRuta.Focus();
                 return false;
             }
-            if (!System.Text.RegularExpressions.Regex.IsMatch(txtNombreRuta.Text, @"^[a-zA-Z0-9]+$"))
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtNombreRuta.Text, @"^[a-zA-Z0-9\s]+$"))
             {
                 MessageBox.Show("Solo caracteres alfanuméricos");
                 return false;
@@ -141,12 +173,16 @@ namespace ControlRutasCormex.Forms
             if (cmbTipo.SelectedIndex == 0 && capacidad > 34)
             {
                 MessageBox.Show("Máximo 34 para Personal");
+                txtCapacidad.Focus();
+                txtCapacidad.SelectAll();
                 return false;
             }
 
             if (cmbTipo.SelectedIndex == 1 && capacidad > 100)
             {
                 MessageBox.Show("Máximo 100 para Artículos");
+                txtCapacidad.Focus();
+                txtCapacidad.SelectAll();
                 return false;
             }
 
@@ -155,9 +191,23 @@ namespace ControlRutasCormex.Forms
         }
         private void cmbCiudad_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbCiudad.SelectedValue != null && cmbCiudad.SelectedValue is int idCiudad)
+            if (cmbCiudad.SelectedValue == null)
+                return;
+
+            // Evitar el problema de DataRowView
+            if (cmbCiudad.SelectedValue is DataRowView)
+                return;
+
+            int idCiudad = Convert.ToInt32(cmbCiudad.SelectedValue);
+
+            if (idCiudad > 0)
             {
                 CargarChoferes(idCiudad);
+            }
+            else
+            {
+                cmbChofer.DataSource = null;
+                cmbChofer.Items.Clear();
             }
         }
 
@@ -203,6 +253,44 @@ namespace ControlRutasCormex.Forms
             txtCapacidad.Clear();
 
             cmbCiudad.Focus();
+        }
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private static extern void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void BarraTitulo_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show(
+               "¿Desea salir?",
+               "Confirmar",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        private void btnCerrar2_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show(
+                "¿Desea salir?",
+                "Confirmar",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (resultado == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
     }
 }

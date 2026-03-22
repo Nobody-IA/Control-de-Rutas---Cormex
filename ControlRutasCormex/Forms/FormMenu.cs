@@ -1,5 +1,6 @@
 using ControlRutasCormex.Data;
 using ControlRutasCormex.Forms;
+using System.Runtime.InteropServices;
 
 namespace ControlRutasCormex
 {
@@ -15,7 +16,7 @@ namespace ControlRutasCormex
         {
 
         }
-        #region botones de control de ventana
+        #region BotonesDeControlDeVentana
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
@@ -55,7 +56,24 @@ namespace ControlRutasCormex
         {
             formAltaEmpleado formAltaEmpleado = new formAltaEmpleado();
             formAltaEmpleado.ShowDialog();
-            
+
+        }
+        #region MoverFormulario
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private static extern void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void BarraTitulo_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+        #endregion
+
+        private void btnAltaRutas_Click(object sender, EventArgs e)
+        {
+            FormAltaRutas formAltaRutas = new FormAltaRutas();
+            formAltaRutas.ShowDialog();
         }
     }
 }

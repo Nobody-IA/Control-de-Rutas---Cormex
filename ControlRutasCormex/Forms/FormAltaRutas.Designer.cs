@@ -60,6 +60,7 @@
             BarraTitulo.Name = "BarraTitulo";
             BarraTitulo.Size = new Size(520, 37);
             BarraTitulo.TabIndex = 2;
+            BarraTitulo.MouseDown += BarraTitulo_MouseDown;
             // 
             // btnCerrar2
             // 
@@ -72,6 +73,7 @@
             btnCerrar2.SizeMode = PictureBoxSizeMode.Zoom;
             btnCerrar2.TabIndex = 7;
             btnCerrar2.TabStop = false;
+            btnCerrar2.Click += btnCerrar2_Click;
             // 
             // Rutas
             // 
@@ -99,6 +101,7 @@
             // cmbCiudad
             // 
             cmbCiudad.BackColor = SystemColors.InactiveBorder;
+            cmbCiudad.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCiudad.FlatStyle = FlatStyle.Flat;
             cmbCiudad.Font = new Font("Consolas", 12F);
             cmbCiudad.FormattingEnabled = true;
@@ -106,7 +109,6 @@
             cmbCiudad.Name = "cmbCiudad";
             cmbCiudad.Size = new Size(155, 27);
             cmbCiudad.TabIndex = 3;
-            cmbCiudad.Text = "Seleccione";
             cmbCiudad.SelectedIndexChanged += cmbCiudad_SelectedIndexChanged;
             // 
             // label1
@@ -125,10 +127,11 @@
             txtNombreRuta.BackColor = SystemColors.InactiveBorder;
             txtNombreRuta.BorderStyle = BorderStyle.None;
             txtNombreRuta.Font = new Font("Consolas", 12F);
-            txtNombreRuta.Location = new Point(184, 149);
+            txtNombreRuta.Location = new Point(184, 115);
             txtNombreRuta.MaxLength = 155;
+            txtNombreRuta.Multiline = true;
             txtNombreRuta.Name = "txtNombreRuta";
-            txtNombreRuta.Size = new Size(155, 19);
+            txtNombreRuta.Size = new Size(238, 61);
             txtNombreRuta.TabIndex = 7;
             // 
             // label2
@@ -145,6 +148,7 @@
             // cmbTipo
             // 
             cmbTipo.BackColor = SystemColors.InactiveBorder;
+            cmbTipo.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbTipo.FlatStyle = FlatStyle.Flat;
             cmbTipo.Font = new Font("Consolas", 12F);
             cmbTipo.FormattingEnabled = true;
@@ -152,7 +156,6 @@
             cmbTipo.Name = "cmbTipo";
             cmbTipo.Size = new Size(155, 27);
             cmbTipo.TabIndex = 8;
-            cmbTipo.Text = "Seleccione";
             // 
             // label3
             // 
@@ -168,6 +171,7 @@
             // cmbChofer
             // 
             cmbChofer.BackColor = SystemColors.InactiveBorder;
+            cmbChofer.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbChofer.FlatStyle = FlatStyle.Flat;
             cmbChofer.Font = new Font("Consolas", 12F);
             cmbChofer.FormattingEnabled = true;
@@ -175,7 +179,6 @@
             cmbChofer.Name = "cmbChofer";
             cmbChofer.Size = new Size(155, 27);
             cmbChofer.TabIndex = 10;
-            cmbChofer.Text = "Seleccione";
             // 
             // label4
             // 
@@ -201,6 +204,7 @@
             btnSalir.TabIndex = 17;
             btnSalir.Text = "Salir";
             btnSalir.UseVisualStyleBackColor = false;
+            btnSalir.Click += btnSalir_Click;
             // 
             // btnGuardar
             // 

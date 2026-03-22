@@ -69,6 +69,7 @@
             BarraTitulo.Name = "BarraTitulo";
             BarraTitulo.Size = new Size(1300, 37);
             BarraTitulo.TabIndex = 0;
+            BarraTitulo.MouseDown += BarraTitulo_MouseDown;
             // 
             // btnRestaurar
             // 
@@ -242,6 +243,7 @@
             btnAltaRutas.Text = "Alta Rutas";
             btnAltaRutas.TextAlign = ContentAlignment.MiddleRight;
             btnAltaRutas.UseVisualStyleBackColor = false;
+            btnAltaRutas.Click += btnAltaRutas_Click;
             // 
             // panel2
             // 
