@@ -275,10 +275,12 @@
             Controls.Add(MenuVertical);
             Controls.Add(BarraTitulo);
             FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
             Name = "FormMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             Load += FormMenu_Load;
+            KeyDown += FormMenu_KeyDown;
             KeyPress += FormMenu_KeyPress;
             BarraTitulo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnRestaurar).EndInit();

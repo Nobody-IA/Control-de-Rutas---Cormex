@@ -247,10 +247,12 @@
             Controls.Add(label1);
             Controls.Add(cmbCiudad);
             FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
             Name = "FormModRutas";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormModRutas";
             Load += FormModRutas_Load;
+            KeyDown += FormModRutas_KeyDown;
             BarraTitulo.ResumeLayout(false);
             BarraTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)btnCerrar2).EndInit();

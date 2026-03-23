@@ -201,5 +201,24 @@ namespace ControlRutasCormex.Forms
             }
 
         }
+
+        private void FormModEmpleados_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                // Preguntamos al usuario si realmente quiere salir
+                DialogResult respuesta = MessageBox.Show(
+                    "¿Está seguro que desea salir? Se perderán los cambios no guardados.",
+                    "Confirmar salida",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    this.Close();
+                }
+            }
+        }
     }
 }

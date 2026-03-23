@@ -284,9 +284,12 @@
             Controls.Add(txtNombre);
             Controls.Add(BarraTitulo);
             FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
             Name = "FormModEmpleados";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormModEmpleados";
             Load += FormModEmpleados_Load;
+            KeyDown += FormModEmpleados_KeyDown;
             ((System.ComponentModel.ISupportInitialize)btnCerrar).EndInit();
             BarraTitulo.ResumeLayout(false);
             BarraTitulo.PerformLayout();

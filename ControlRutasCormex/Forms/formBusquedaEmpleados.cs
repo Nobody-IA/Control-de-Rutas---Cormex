@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -120,9 +121,10 @@ namespace ControlRutasCormex.Forms
                 cmd.Parameters.AddWithValue("@Id", idEmpleado);
 
                 cmd.ExecuteNonQuery();
+                MessageBox.Show("Empleado desactivado");
             }
 
-            MessageBox.Show("Empleado desactivado");
+
             CargarEmpleados();
         }
 
@@ -148,12 +150,12 @@ namespace ControlRutasCormex.Forms
             CargarEmpleados();
         }
 
-        
+
 
         private void dgvEmpleados_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // Evitar errores al hacer clic en el encabezado o fuera de las filas
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
             // Evitar errores al hacer clic en la fila de "nueva entrada"
             if (dgvEmpleados.Rows[e.RowIndex].IsNewRow) return;
             // Verificar que la columna clickeada sea "Editar" o "Eliminar"
@@ -164,7 +166,10 @@ namespace ControlRutasCormex.Forms
 
             if (dgvEmpleados.Columns[e.ColumnIndex].Name == "Eliminar")
             {
+
                 EliminarEmpleado(idEmpleado);
+                CargarEmpleados();
+
             }
 
             if (dgvEmpleados.Columns[e.ColumnIndex].Name == "Editar")
@@ -197,6 +202,36 @@ namespace ControlRutasCormex.Forms
         private void dgvEmpleados_DataSourceChanged(object sender, EventArgs e)
         {
             AgregarBotones();
+        }
+        #region MoverFormulario
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private static extern void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void BarraTitulo_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+        #endregion
+
+        private void formBusquedaEmpleados_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                // Preguntamos al usuario si realmente quiere salir
+                DialogResult respuesta = MessageBox.Show(
+                    "¿Está seguro que desea salir? Se perderán los cambios no guardados.",
+                    "Confirmar salida",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    this.Close();
+                }
+            }
         }
     }
 }

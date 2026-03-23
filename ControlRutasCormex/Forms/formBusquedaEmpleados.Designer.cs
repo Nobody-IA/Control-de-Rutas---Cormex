@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             BarraTitulo = new Panel();
             btpSalir = new PictureBox();
             pictureBox1 = new PictureBox();
@@ -62,6 +65,7 @@
             BarraTitulo.Name = "BarraTitulo";
             BarraTitulo.Size = new Size(950, 37);
             BarraTitulo.TabIndex = 6;
+            BarraTitulo.MouseDown += BarraTitulo_MouseDown;
             // 
             // btpSalir
             // 
@@ -107,9 +111,9 @@
             BusquedaEmpleados.ForeColor = SystemColors.ControlLightLight;
             BusquedaEmpleados.Location = new Point(12, 10);
             BusquedaEmpleados.Name = "BusquedaEmpleados";
-            BusquedaEmpleados.Size = new Size(147, 20);
+            BusquedaEmpleados.Size = new Size(184, 20);
             BusquedaEmpleados.TabIndex = 6;
-            BusquedaEmpleados.Text = "Busqueda De Rutas";
+            BusquedaEmpleados.Text = "Busqueda De Empleados";
             // 
             // btnCerrar
             // 
@@ -183,9 +187,38 @@
             // 
             // dgvEmpleados
             // 
-            dgvEmpleados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvEmpleados.BackgroundColor = Color.FromArgb(50, 66, 85);
+            dgvEmpleados.BorderStyle = BorderStyle.None;
+            dgvEmpleados.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(0, 80, 200);
+            dataGridViewCellStyle1.Font = new Font("Consolas", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvEmpleados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvEmpleados.ColumnHeadersHeight = 30;
+            dgvEmpleados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvEmpleados.EnableHeadersVisualStyles = false;
+            dgvEmpleados.GridColor = Color.SteelBlue;
             dgvEmpleados.Location = new Point(291, 56);
             dgvEmpleados.Name = "dgvEmpleados";
+            dgvEmpleados.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(50, 66, 85);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = Color.SteelBlue;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvEmpleados.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(50, 66, 85);
+            dataGridViewCellStyle3.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.SteelBlue;
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dgvEmpleados.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dgvEmpleados.Size = new Size(631, 417);
             dgvEmpleados.TabIndex = 8;
             dgvEmpleados.DataSourceChanged += dgvEmpleados_DataSourceChanged;
@@ -200,10 +233,12 @@
             Controls.Add(groupBox1);
             Controls.Add(dgvEmpleados);
             FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
             Name = "formBusquedaEmpleados";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "formBusquedaEmpleados";
             Load += formBusquedaEmpleados_Load;
+            KeyDown += formBusquedaEmpleados_KeyDown;
             BarraTitulo.ResumeLayout(false);
             BarraTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)btpSalir).EndInit();

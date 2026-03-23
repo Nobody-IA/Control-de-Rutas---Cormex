@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             BarraTitulo = new Panel();
             pictureBox1 = new PictureBox();
             btnCerrar2 = new PictureBox();
@@ -59,6 +62,7 @@
             BarraTitulo.Name = "BarraTitulo";
             BarraTitulo.Size = new Size(950, 37);
             BarraTitulo.TabIndex = 3;
+            BarraTitulo.MouseDown += BarraTitulo_MouseDown;
             // 
             // pictureBox1
             // 
@@ -168,9 +172,38 @@
             // 
             // dgvRutas
             // 
-            dgvRutas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRutas.BackgroundColor = Color.FromArgb(50, 66, 85);
+            dgvRutas.BorderStyle = BorderStyle.None;
+            dgvRutas.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(0, 80, 200);
+            dataGridViewCellStyle1.Font = new Font("Consolas", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvRutas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvRutas.ColumnHeadersHeight = 30;
+            dgvRutas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvRutas.EnableHeadersVisualStyles = false;
+            dgvRutas.GridColor = Color.SteelBlue;
             dgvRutas.Location = new Point(291, 56);
             dgvRutas.Name = "dgvRutas";
+            dgvRutas.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(50, 66, 85);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = Color.SteelBlue;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvRutas.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(50, 66, 85);
+            dataGridViewCellStyle3.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.SteelBlue;
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dgvRutas.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dgvRutas.Size = new Size(631, 417);
             dgvRutas.TabIndex = 5;
             dgvRutas.DataSourceChanged += dgvRutas_DataSourceChanged;
@@ -186,10 +219,12 @@
             Controls.Add(groupBox1);
             Controls.Add(BarraTitulo);
             FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
             Name = "FormBusquedaRuta";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormBusquedaRuta";
             Load += FormBusquedaRuta_Load;
+            KeyDown += FormBusquedaRuta_KeyDown;
             BarraTitulo.ResumeLayout(false);
             BarraTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

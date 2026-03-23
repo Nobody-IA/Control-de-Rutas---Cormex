@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -172,7 +173,7 @@ namespace ControlRutasCormex.Forms
         private void dgvRutas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //primero validamos que no se haya hecho click en el encabezado o en una fila nueva
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
             // Validamos que no sea la fila de "nueva fila" al final del DataGridView
             if (dgvRutas.Rows[e.RowIndex].IsNewRow) return;
             //validamos que el valor de la celda "IdRuta" no sea nulo o DBNull antes de convertirlo a entero
@@ -184,6 +185,7 @@ namespace ControlRutasCormex.Forms
             if (dgvRutas.Columns[e.ColumnIndex].Name == "Eliminar")
             {
                 EliminarRuta(idRuta);
+                CargarRutas(); // Refrescar después de borrar
             }
 
             if (dgvRutas.Columns[e.ColumnIndex].Name == "Editar")
@@ -250,6 +252,37 @@ namespace ControlRutasCormex.Forms
         private void dgvRutas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+        #region MoverFormulario
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private static extern void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void BarraTitulo_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+        #endregion
+
+
+        private void FormBusquedaRuta_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                // Preguntamos al usuario si realmente quiere salir
+                DialogResult respuesta = MessageBox.Show(
+                    "¿Está seguro que desea salir? Se perderán los cambios no guardados.",
+                    "Confirmar salida",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    this.Close();
+                }
+            }
         }
     }
 }

@@ -249,9 +249,12 @@
             Controls.Add(cmbCiudad);
             Controls.Add(BarraTitulo);
             FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
             Name = "FormAltaRutas";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormAltaRutas";
             Load += FormAltaRutas_Load;
+            KeyDown += FormAltaRutas_KeyDown;
             BarraTitulo.ResumeLayout(false);
             BarraTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)btnCerrar2).EndInit();

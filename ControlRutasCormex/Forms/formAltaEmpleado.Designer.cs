@@ -270,9 +270,12 @@
             Controls.Add(cmbCiudad);
             Controls.Add(BarraTitulo);
             FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
             Name = "formAltaEmpleado";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "formAltaEmpleado";
             Load += formAltaEmpleado_Load;
+            KeyDown += formAltaEmpleado_KeyDown;
             BarraTitulo.ResumeLayout(false);
             BarraTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)btnCerrar).EndInit();

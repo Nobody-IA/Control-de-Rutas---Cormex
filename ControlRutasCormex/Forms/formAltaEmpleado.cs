@@ -14,7 +14,7 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace ControlRutasCormex.Forms
 {
-    public partial class formAltaEmpleado: Form
+    public partial class formAltaEmpleado : Form
     {
         public formAltaEmpleado()
         {
@@ -202,6 +202,23 @@ namespace ControlRutasCormex.Forms
             }
         }
 
+        private void formAltaEmpleado_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                // Preguntamos al usuario si realmente quiere salir
+                DialogResult respuesta = MessageBox.Show(
+                    "¿Está seguro que desea salir? Se perderán los cambios no guardados.",
+                    "Confirmar salida",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
 
+                if (respuesta == DialogResult.Yes)
+                {
+                    this.Close();
+                }
+            }
+        }
     }
 }
