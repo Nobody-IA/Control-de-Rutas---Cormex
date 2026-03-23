@@ -34,8 +34,6 @@
             BusquedaRutas = new Label();
             btnCerrar = new PictureBox();
             groupBox1 = new GroupBox();
-            btnBuscar = new Button();
-            btnEliminarFiltro = new Button();
             label2 = new Label();
             label1 = new Label();
             txtFiltroRuta = new TextBox();
@@ -113,8 +111,6 @@
             // groupBox1
             // 
             groupBox1.BackColor = SystemColors.ButtonFace;
-            groupBox1.Controls.Add(btnBuscar);
-            groupBox1.Controls.Add(btnEliminarFiltro);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(txtFiltroRuta);
@@ -125,30 +121,6 @@
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Datos De Busqueda";
-            // 
-            // btnBuscar
-            // 
-            btnBuscar.ForeColor = SystemColors.Highlight;
-            btnBuscar.Location = new Point(137, 147);
-            btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(108, 23);
-            btnBuscar.TabIndex = 8;
-            btnBuscar.Text = "Buscar";
-            btnBuscar.UseVisualStyleBackColor = true;
-            btnBuscar.Visible = false;
-            btnBuscar.Click += btnBuscar_Click;
-            // 
-            // btnEliminarFiltro
-            // 
-            btnEliminarFiltro.ForeColor = Color.Red;
-            btnEliminarFiltro.Location = new Point(6, 147);
-            btnEliminarFiltro.Name = "btnEliminarFiltro";
-            btnEliminarFiltro.Size = new Size(97, 23);
-            btnEliminarFiltro.TabIndex = 7;
-            btnEliminarFiltro.Text = "Eliminar Filtros";
-            btnEliminarFiltro.UseVisualStyleBackColor = true;
-            btnEliminarFiltro.Visible = false;
-            btnEliminarFiltro.Click += btnEliminarFiltro_Click;
             // 
             // label2
             // 
@@ -240,9 +212,7 @@
         private DataGridView dgvRutas;
         private ComboBox cmbCiudad;
         private TextBox txtFiltroRuta;
-        private Button btnEliminarFiltro;
         private Label label2;
         private Label label1;
-        private Button btnBuscar;
     }
 }

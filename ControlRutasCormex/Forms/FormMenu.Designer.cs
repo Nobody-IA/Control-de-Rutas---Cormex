@@ -34,10 +34,6 @@
             btnMaximisar = new PictureBox();
             btnCerrar = new PictureBox();
             MenuVertical = new Panel();
-            panel6 = new Panel();
-            button5 = new Button();
-            panel5 = new Panel();
-            button4 = new Button();
             panel4 = new Panel();
             btnBusquedaRutas = new Button();
             panel3 = new Panel();
@@ -127,10 +123,6 @@
             // MenuVertical
             // 
             MenuVertical.BackColor = Color.FromArgb(20, 32, 40);
-            MenuVertical.Controls.Add(panel6);
-            MenuVertical.Controls.Add(button5);
-            MenuVertical.Controls.Add(panel5);
-            MenuVertical.Controls.Add(button4);
             MenuVertical.Controls.Add(panel4);
             MenuVertical.Controls.Add(btnBusquedaRutas);
             MenuVertical.Controls.Add(panel3);
@@ -145,52 +137,6 @@
             MenuVertical.Name = "MenuVertical";
             MenuVertical.Size = new Size(220, 613);
             MenuVertical.TabIndex = 1;
-            // 
-            // panel6
-            // 
-            panel6.BackColor = Color.FromArgb(0, 80, 200);
-            panel6.Location = new Point(0, 408);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(12, 45);
-            panel6.TabIndex = 12;
-            // 
-            // button5
-            // 
-            button5.BackColor = Color.FromArgb(20, 32, 40);
-            button5.FlatAppearance.BorderSize = 0;
-            button5.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 80, 200);
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Yu Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button5.ForeColor = SystemColors.ControlLightLight;
-            button5.Location = new Point(12, 408);
-            button5.Name = "button5";
-            button5.Size = new Size(205, 45);
-            button5.TabIndex = 11;
-            button5.Text = "Alta Empleados";
-            button5.UseVisualStyleBackColor = false;
-            // 
-            // panel5
-            // 
-            panel5.BackColor = Color.FromArgb(0, 80, 200);
-            panel5.Location = new Point(0, 357);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(12, 45);
-            panel5.TabIndex = 10;
-            // 
-            // button4
-            // 
-            button4.BackColor = Color.FromArgb(20, 32, 40);
-            button4.FlatAppearance.BorderSize = 0;
-            button4.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 80, 200);
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Font = new Font("Yu Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.ForeColor = SystemColors.ControlLightLight;
-            button4.Location = new Point(12, 357);
-            button4.Name = "button4";
-            button4.Size = new Size(205, 45);
-            button4.TabIndex = 9;
-            button4.Text = "Alta Empleados";
-            button4.UseVisualStyleBackColor = false;
             // 
             // panel4
             // 
@@ -272,6 +218,7 @@
             btnBusquedaEmpleados.Text = "Búsqueda Empleados";
             btnBusquedaEmpleados.TextAlign = ContentAlignment.MiddleRight;
             btnBusquedaEmpleados.UseVisualStyleBackColor = false;
+            btnBusquedaEmpleados.Click += btnBusquedaEmpleados_Click;
             // 
             // panel1
             // 
@@ -352,10 +299,6 @@
         private PictureBox btnRestaurar;
         private Button btnAltaEmpleados;
         private PictureBox pictureBox1;
-        private Panel panel6;
-        private Button button5;
-        private Panel panel5;
-        private Button button4;
         private Panel panel4;
         private Button btnBusquedaRutas;
         private Panel panel3;

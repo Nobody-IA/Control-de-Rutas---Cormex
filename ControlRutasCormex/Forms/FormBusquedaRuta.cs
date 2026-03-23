@@ -146,7 +146,7 @@ namespace ControlRutasCormex.Forms
 
             MessageBox.Show("Ruta eliminada");
 
-            btnBuscar.PerformClick(); // recargar
+            CargarRutas(); // refrescar el datagridview
         }
 
         private void dgvRutas_DataSourceChanged(object sender, EventArgs e)
@@ -245,6 +245,11 @@ namespace ControlRutasCormex.Forms
 
                 dgvRutas.DataSource = dt;
             }
+        }
+
+        private void dgvRutas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

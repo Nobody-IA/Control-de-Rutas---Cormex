@@ -81,5 +81,11 @@ namespace ControlRutasCormex
             FormBusquedaRuta formBusquedaRuta = new FormBusquedaRuta();
             formBusquedaRuta.ShowDialog();
         }
+
+        private void btnBusquedaEmpleados_Click(object sender, EventArgs e)
+        {
+            formBusquedaEmpleados formBusquedaEmpleados = new formBusquedaEmpleados();
+            formBusquedaEmpleados.ShowDialog();
+        }
     }
 }
