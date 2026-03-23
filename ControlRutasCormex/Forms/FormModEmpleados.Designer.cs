@@ -247,6 +247,7 @@
             BarraTitulo.Name = "BarraTitulo";
             BarraTitulo.Size = new Size(363, 37);
             BarraTitulo.TabIndex = 16;
+            BarraTitulo.MouseDown += BarraTitulo_MouseDown;
             // 
             // btnSalir2
             // 
@@ -259,6 +260,7 @@
             btnSalir2.SizeMode = PictureBoxSizeMode.Zoom;
             btnSalir2.TabIndex = 7;
             btnSalir2.TabStop = false;
+            btnSalir2.Click += btnSalir2_Click;
             // 
             // FormModEmpleados
             // 

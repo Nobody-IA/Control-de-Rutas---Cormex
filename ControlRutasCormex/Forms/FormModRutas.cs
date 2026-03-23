@@ -193,31 +193,31 @@ namespace ControlRutasCormex.Forms
         {
             if (!ValidarCampos())
                 return;
-            
-            using (var conexion = new Conexion().ObtenerConexion())
+
+            try
             {
-                conexion.Open();
+                using (var conexion = new Conexion().ObtenerConexion())
+                {
+                    conexion.Open();
 
-                string query = @"
-                UPDATE Rutas
-                SET 
-                    Tipo = @Tipo,
-                    Capacidad = @Capacidad,
-                    IdEmpleado = @Empleado
-                WHERE IdRuta = @IdRuta";
+                    SqlCommand cmd = new SqlCommand("ActualizarRuta", conexion);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                SqlCommand cmd = new SqlCommand(query, conexion);
+                    cmd.Parameters.AddWithValue("@IdRuta", _idRuta);
+                    cmd.Parameters.AddWithValue("@Tipo", cmbTipo.SelectedIndex + 1);
+                    cmd.Parameters.AddWithValue("@Capacidad", int.Parse(txtCapacidad.Text));
+                    cmd.Parameters.AddWithValue("@IdEmpleado", cmbChofer.SelectedValue);
 
-                cmd.Parameters.AddWithValue("@Tipo", cmbTipo.SelectedIndex + 1);
-                cmd.Parameters.AddWithValue("@Capacidad", int.Parse(txtCapacidad.Text));
-                cmd.Parameters.AddWithValue("@Empleado", cmbChofer.SelectedValue);
-                cmd.Parameters.AddWithValue("@IdRuta", _idRuta);
+                    cmd.ExecuteNonQuery();
+                }
 
-                cmd.ExecuteNonQuery();
+                MessageBox.Show("Ruta actualizada correctamente");
+                this.Close();
             }
-
-            MessageBox.Show("Ruta actualizada correctamente");
-            this.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
