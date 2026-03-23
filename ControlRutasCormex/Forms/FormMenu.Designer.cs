@@ -217,6 +217,7 @@
             btnBusquedaRutas.Text = "Búsqueda Rutas";
             btnBusquedaRutas.TextAlign = ContentAlignment.MiddleRight;
             btnBusquedaRutas.UseVisualStyleBackColor = false;
+            btnBusquedaRutas.Click += btnBusquedaRutas_Click;
             // 
             // panel3
             // 
@@ -328,6 +329,7 @@
             Controls.Add(BarraTitulo);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormMenu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             Load += FormMenu_Load;
             BarraTitulo.ResumeLayout(false);

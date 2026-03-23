@@ -39,5 +39,6 @@ namespace ControlRutasCormex.Data
                 MessageBox.Show("Error al cargar datos: " + ex.Message, "Error de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }

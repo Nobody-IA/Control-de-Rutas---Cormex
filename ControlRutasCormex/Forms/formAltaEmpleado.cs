@@ -14,7 +14,7 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace ControlRutasCormex.Forms
 {
-    public partial class formAltaEmpleado : Form
+    public partial class formAltaEmpleado: Form
     {
         public formAltaEmpleado()
         {

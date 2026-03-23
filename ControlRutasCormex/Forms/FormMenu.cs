@@ -75,5 +75,11 @@ namespace ControlRutasCormex
             FormAltaRutas formAltaRutas = new FormAltaRutas();
             formAltaRutas.ShowDialog();
         }
+
+        private void btnBusquedaRutas_Click(object sender, EventArgs e)
+        {
+            FormBusquedaRuta formBusquedaRuta = new FormBusquedaRuta();
+            formBusquedaRuta.ShowDialog();
+        }
     }
 }
