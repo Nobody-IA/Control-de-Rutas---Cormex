@@ -43,6 +43,7 @@
             btnGuardar = new Button();
             txtCapacidad = new TextBox();
             label5 = new Label();
+            lblEstatus = new Label();
             BarraTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnCerrar2).BeginInit();
             SuspendLayout();
@@ -92,7 +93,7 @@
             cmbCiudad.FormattingEnabled = true;
             cmbCiudad.Location = new Point(135, 57);
             cmbCiudad.Name = "cmbCiudad";
-            cmbCiudad.Size = new Size(155, 27);
+            cmbCiudad.Size = new Size(179, 27);
             cmbCiudad.TabIndex = 3;
             cmbCiudad.SelectedIndexChanged += cmbCiudad_SelectedIndexChanged;
             // 
@@ -160,9 +161,9 @@
             cmbChofer.FlatStyle = FlatStyle.Flat;
             cmbChofer.Font = new Font("Consolas", 12F);
             cmbChofer.FormattingEnabled = true;
-            cmbChofer.Location = new Point(135, 199);
+            cmbChofer.Location = new Point(135, 224);
             cmbChofer.Name = "cmbChofer";
-            cmbChofer.Size = new Size(155, 27);
+            cmbChofer.Size = new Size(238, 27);
             cmbChofer.TabIndex = 10;
             // 
             // label4
@@ -170,7 +171,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Consolas", 12F);
             label4.ForeColor = SystemColors.ControlLightLight;
-            label4.Location = new Point(48, 202);
+            label4.Location = new Point(48, 227);
             label4.Name = "label4";
             label4.Size = new Size(72, 19);
             label4.TabIndex = 11;
@@ -183,7 +184,7 @@
             btnSalir.FlatAppearance.BorderSize = 0;
             btnSalir.FlatStyle = FlatStyle.Flat;
             btnSalir.ForeColor = SystemColors.ControlLightLight;
-            btnSalir.Location = new Point(215, 278);
+            btnSalir.Location = new Point(215, 303);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(75, 23);
             btnSalir.TabIndex = 17;
@@ -198,7 +199,7 @@
             btnGuardar.FlatAppearance.BorderSize = 0;
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.ForeColor = SystemColors.ControlLightLight;
-            btnGuardar.Location = new Point(134, 278);
+            btnGuardar.Location = new Point(134, 303);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(75, 23);
             btnGuardar.TabIndex = 16;
@@ -211,7 +212,7 @@
             txtCapacidad.BackColor = SystemColors.InactiveBorder;
             txtCapacidad.BorderStyle = BorderStyle.None;
             txtCapacidad.Font = new Font("Consolas", 12F);
-            txtCapacidad.Location = new Point(135, 241);
+            txtCapacidad.Location = new Point(135, 266);
             txtCapacidad.MaxLength = 15;
             txtCapacidad.Name = "txtCapacidad";
             txtCapacidad.Size = new Size(74, 19);
@@ -223,11 +224,24 @@
             label5.AutoSize = true;
             label5.Font = new Font("Consolas", 12F);
             label5.ForeColor = SystemColors.ControlLightLight;
-            label5.Location = new Point(21, 241);
+            label5.Location = new Point(21, 266);
             label5.Name = "label5";
             label5.Size = new Size(99, 19);
             label5.TabIndex = 19;
             label5.Text = "Capacidad:";
+            // 
+            // lblEstatus
+            // 
+            lblEstatus.BackColor = Color.White;
+            lblEstatus.BorderStyle = BorderStyle.FixedSingle;
+            lblEstatus.Font = new Font("Consolas", 12F);
+            lblEstatus.ForeColor = SystemColors.ControlLightLight;
+            lblEstatus.Location = new Point(134, 193);
+            lblEstatus.Name = "lblEstatus";
+            lblEstatus.Size = new Size(156, 25);
+            lblEstatus.TabIndex = 20;
+            lblEstatus.TextAlign = ContentAlignment.MiddleCenter;
+            lblEstatus.Visible = false;
             // 
             // FormAltaRutas
             // 
@@ -235,6 +249,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(50, 66, 85);
             ClientSize = new Size(407, 333);
+            Controls.Add(lblEstatus);
             Controls.Add(label5);
             Controls.Add(txtCapacidad);
             Controls.Add(btnSalir);
@@ -279,5 +294,6 @@
         private Button btnGuardar;
         private TextBox txtCapacidad;
         private Label label5;
+        private Label lblEstatus;
     }
 }

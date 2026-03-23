@@ -104,7 +104,8 @@ namespace ControlRutasCormex.Forms
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-
+            if (!ValidarCampos())
+                return;
 
             try
             {
@@ -127,13 +128,12 @@ namespace ControlRutasCormex.Forms
                     MessageBox.Show("Empleado guardado. ID: " + id);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Error al guardar empleado" + ex.Message);
+                
             }
 
-            if (!ValidarCampos())
-                return;
+
 
             LimpiarCampos();
         }

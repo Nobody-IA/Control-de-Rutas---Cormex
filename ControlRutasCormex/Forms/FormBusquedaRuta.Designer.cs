@@ -133,9 +133,9 @@
             label2.ForeColor = SystemColors.ActiveCaptionText;
             label2.Location = new Point(6, 72);
             label2.Name = "label2";
-            label2.Size = new Size(126, 19);
+            label2.Size = new Size(81, 19);
             label2.TabIndex = 6;
-            label2.Text = "Filltro Ruta:";
+            label2.Text = "Filltro:";
             // 
             // label1
             // 

@@ -106,11 +106,13 @@ namespace ControlRutasCormex.Forms
 
                 if (reader.Read())
                 {
+                    cmbCiudad.SelectedValue = reader["IdCiudad"];
                     txtNombre.Text = reader["Nombre"].ToString();
                     txtApPaterno.Text = reader["ApellidoPaterno"].ToString();
                     txtApMaterno.Text = reader["ApellidoMaterno"].ToString();
                     dtpFechaNacimiento.Value = Convert.ToDateTime(reader["FechaNacimiento"]);
                     txtSueldo.Text = reader["Sueldo"].ToString();
+                    
                 }
             }
         }

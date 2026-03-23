@@ -57,9 +57,15 @@ namespace ControlRutasCormex.Forms
 
         private void CargarChoferes(int idCiudad)
         {
-            // Limpiamos antes de empezar
-            cmbChofer.DataSource = null;
-            cmbChofer.Items.Clear();
+            // 1. Si no hay ciudad válida, reseteamos todo y bloqueamos
+            if (idCiudad <= 0)
+            {
+                lblEstatus.Visible = false;
+                cmbChofer.DataSource = null;
+                cmbChofer.Enabled = false; // Bloqueado por defecto
+                return;
+            }
+            // 2. Si hay ciudad, habilitamos el ComboBox y mostramos el estatus
             using (var conexion = new Conexion().ObtenerConexion())
             {
                 try
@@ -79,18 +85,36 @@ namespace ControlRutasCormex.Forms
                     SqlDataReader reader = cmd.ExecuteReader();
                     DataTable dt = new DataTable();
                     dt.Load(reader);
-
+                    // Mostramos el estatus y configuramos el ComboBox según los resultados
+                    lblEstatus.Visible = true;
                     if (dt.Rows.Count > 0)
                     {
+                        // Configuración para el estado POSITIVO (Verde)
+                        lblEstatus.Text = "CHOFERES DISPONIBLES";
+                        lblEstatus.BackColor = Color.FromArgb(192, 255, 192);
+                        lblEstatus.ForeColor = Color.Black;
+
                         cmbChofer.DataSource = dt;
                         // Usamos el nuevo alias "NombreIdentificado"
                         cmbChofer.DisplayMember = "NombreIdentificado";
                         cmbChofer.ValueMember = "IdEmpleado";
                         cmbChofer.SelectedIndex = -1;
+
+                        // Habilitamos el combo para que puedan elegir
+                        cmbChofer.Enabled = true;
                     }
                     else
                     {
-                        MessageBox.Show("No hay choferes en esta ciudad.");
+                        // Configuración para el estado NEGATIVO (Rojo)
+                        lblEstatus.Text = "SIN PERSONAL DISPONIBLE";
+                        lblEstatus.BackColor = Color.FromArgb(255, 192, 192);
+                        lblEstatus.ForeColor = Color.Black;
+
+                        cmbChofer.DataSource = null;
+                        cmbChofer.Items.Clear();
+
+                        // BLOQUEAMOS el combo para evitar clics innecesarios
+                        cmbChofer.Enabled = false;
                     }
                 }
                 catch (Exception ex)
