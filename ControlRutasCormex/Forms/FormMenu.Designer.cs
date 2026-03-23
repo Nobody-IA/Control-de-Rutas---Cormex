@@ -279,6 +279,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             Load += FormMenu_Load;
+            KeyPress += FormMenu_KeyPress;
             BarraTitulo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnRestaurar).EndInit();
             ((System.ComponentModel.ISupportInitialize)btnMinimizar).EndInit();

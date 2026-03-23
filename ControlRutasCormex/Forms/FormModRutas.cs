@@ -1,4 +1,5 @@
 ﻿using ControlRutasCormex.Data;
+using ControlRutasCormex.Repositoris;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace ControlRutasCormex.Forms
     public partial class FormModRutas : Form
     {
         private int _idRuta;
+        private RutasRepositoris _rutasRepositoris = new RutasRepositoris();
         public FormModRutas(int idRuta)
         {
             InitializeComponent();
@@ -191,7 +193,7 @@ namespace ControlRutasCormex.Forms
         {
             if (!ValidarCampos())
                 return;
-
+            
             using (var conexion = new Conexion().ObtenerConexion())
             {
                 conexion.Open();

@@ -77,7 +77,7 @@
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(75, 23);
             btnGuardar.TabIndex = 29;
-            btnGuardar.Text = "Guardar";
+            btnGuardar.Text = "Actualizar";
             btnGuardar.UseVisualStyleBackColor = false;
             btnGuardar.Click += btnGuardar_Click;
             // 
@@ -284,6 +284,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormModEmpleados";
             Text = "FormModEmpleados";
+            Load += FormModEmpleados_Load;
             ((System.ComponentModel.ISupportInitialize)btnCerrar).EndInit();
             BarraTitulo.ResumeLayout(false);
             BarraTitulo.PerformLayout();

@@ -54,7 +54,7 @@ namespace ControlRutasCormex
         #endregion
         private void btnAltaEmpleados_Click(object sender, EventArgs e)
         {
-            formAltaEmpleado formAltaEmpleado = new formAltaEmpleado();
+            formModEmpleados formAltaEmpleado = new formModEmpleados();
             formAltaEmpleado.ShowDialog();
 
         }
@@ -86,6 +86,12 @@ namespace ControlRutasCormex
         {
             formBusquedaEmpleados formBusquedaEmpleados = new formBusquedaEmpleados();
             formBusquedaEmpleados.ShowDialog();
+        }
+
+        private void FormMenu_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            this.Close();
         }
     }
 }
