@@ -175,7 +175,7 @@ namespace ControlRutasCormex.Forms
 
         }
 
-        #region mover formulario
+        #region MoverFormulario
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]

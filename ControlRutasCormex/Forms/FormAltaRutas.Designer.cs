@@ -31,7 +31,6 @@
             BarraTitulo = new Panel();
             btnCerrar2 = new PictureBox();
             Rutas = new Label();
-            btnCerrar = new PictureBox();
             cmbCiudad = new ComboBox();
             label1 = new Label();
             txtNombreRuta = new TextBox();
@@ -46,7 +45,6 @@
             label5 = new Label();
             BarraTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnCerrar2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)btnCerrar).BeginInit();
             SuspendLayout();
             // 
             // BarraTitulo
@@ -54,11 +52,10 @@
             BarraTitulo.BackColor = Color.FromArgb(0, 80, 200);
             BarraTitulo.Controls.Add(btnCerrar2);
             BarraTitulo.Controls.Add(Rutas);
-            BarraTitulo.Controls.Add(btnCerrar);
             BarraTitulo.Dock = DockStyle.Top;
             BarraTitulo.Location = new Point(0, 0);
             BarraTitulo.Name = "BarraTitulo";
-            BarraTitulo.Size = new Size(520, 37);
+            BarraTitulo.Size = new Size(407, 37);
             BarraTitulo.TabIndex = 2;
             BarraTitulo.MouseDown += BarraTitulo_MouseDown;
             // 
@@ -67,7 +64,7 @@
             btnCerrar2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCerrar2.Cursor = Cursors.Hand;
             btnCerrar2.Image = Properties.Resources.cerrar1;
-            btnCerrar2.Location = new Point(492, 5);
+            btnCerrar2.Location = new Point(379, 5);
             btnCerrar2.Name = "btnCerrar2";
             btnCerrar2.Size = new Size(25, 25);
             btnCerrar2.SizeMode = PictureBoxSizeMode.Zoom;
@@ -86,18 +83,6 @@
             Rutas.TabIndex = 6;
             Rutas.Text = "Alta Rutas";
             // 
-            // btnCerrar
-            // 
-            btnCerrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnCerrar.Cursor = Cursors.Hand;
-            btnCerrar.Image = Properties.Resources.cerrar1;
-            btnCerrar.Location = new Point(812, 6);
-            btnCerrar.Name = "btnCerrar";
-            btnCerrar.Size = new Size(25, 25);
-            btnCerrar.SizeMode = PictureBoxSizeMode.Zoom;
-            btnCerrar.TabIndex = 5;
-            btnCerrar.TabStop = false;
-            // 
             // cmbCiudad
             // 
             cmbCiudad.BackColor = SystemColors.InactiveBorder;
@@ -105,7 +90,7 @@
             cmbCiudad.FlatStyle = FlatStyle.Flat;
             cmbCiudad.Font = new Font("Consolas", 12F);
             cmbCiudad.FormattingEnabled = true;
-            cmbCiudad.Location = new Point(184, 82);
+            cmbCiudad.Location = new Point(135, 57);
             cmbCiudad.Name = "cmbCiudad";
             cmbCiudad.Size = new Size(155, 27);
             cmbCiudad.TabIndex = 3;
@@ -116,7 +101,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Consolas", 12F);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(103, 85);
+            label1.Location = new Point(54, 60);
             label1.Name = "label1";
             label1.Size = new Size(72, 19);
             label1.TabIndex = 4;
@@ -127,7 +112,7 @@
             txtNombreRuta.BackColor = SystemColors.InactiveBorder;
             txtNombreRuta.BorderStyle = BorderStyle.None;
             txtNombreRuta.Font = new Font("Consolas", 12F);
-            txtNombreRuta.Location = new Point(184, 115);
+            txtNombreRuta.Location = new Point(135, 90);
             txtNombreRuta.MaxLength = 155;
             txtNombreRuta.Multiline = true;
             txtNombreRuta.Name = "txtNombreRuta";
@@ -139,7 +124,7 @@
             label2.FlatStyle = FlatStyle.Flat;
             label2.Font = new Font("Consolas", 12F);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(90, 128);
+            label2.Location = new Point(41, 103);
             label2.Name = "label2";
             label2.Size = new Size(95, 40);
             label2.TabIndex = 6;
@@ -152,7 +137,7 @@
             cmbTipo.FlatStyle = FlatStyle.Flat;
             cmbTipo.Font = new Font("Consolas", 12F);
             cmbTipo.FormattingEnabled = true;
-            cmbTipo.Location = new Point(184, 182);
+            cmbTipo.Location = new Point(135, 157);
             cmbTipo.Name = "cmbTipo";
             cmbTipo.Size = new Size(155, 27);
             cmbTipo.TabIndex = 8;
@@ -162,7 +147,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Consolas", 12F);
             label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(115, 190);
+            label3.Location = new Point(66, 165);
             label3.Name = "label3";
             label3.Size = new Size(54, 19);
             label3.TabIndex = 9;
@@ -175,7 +160,7 @@
             cmbChofer.FlatStyle = FlatStyle.Flat;
             cmbChofer.Font = new Font("Consolas", 12F);
             cmbChofer.FormattingEnabled = true;
-            cmbChofer.Location = new Point(184, 224);
+            cmbChofer.Location = new Point(135, 199);
             cmbChofer.Name = "cmbChofer";
             cmbChofer.Size = new Size(155, 27);
             cmbChofer.TabIndex = 10;
@@ -185,7 +170,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Consolas", 12F);
             label4.ForeColor = SystemColors.ControlLightLight;
-            label4.Location = new Point(97, 227);
+            label4.Location = new Point(48, 202);
             label4.Name = "label4";
             label4.Size = new Size(72, 19);
             label4.TabIndex = 11;
@@ -198,7 +183,7 @@
             btnSalir.FlatAppearance.BorderSize = 0;
             btnSalir.FlatStyle = FlatStyle.Flat;
             btnSalir.ForeColor = SystemColors.ControlLightLight;
-            btnSalir.Location = new Point(264, 303);
+            btnSalir.Location = new Point(215, 278);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(75, 23);
             btnSalir.TabIndex = 17;
@@ -213,7 +198,7 @@
             btnGuardar.FlatAppearance.BorderSize = 0;
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.ForeColor = SystemColors.ControlLightLight;
-            btnGuardar.Location = new Point(183, 303);
+            btnGuardar.Location = new Point(134, 278);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(75, 23);
             btnGuardar.TabIndex = 16;
@@ -226,7 +211,7 @@
             txtCapacidad.BackColor = SystemColors.InactiveBorder;
             txtCapacidad.BorderStyle = BorderStyle.None;
             txtCapacidad.Font = new Font("Consolas", 12F);
-            txtCapacidad.Location = new Point(184, 266);
+            txtCapacidad.Location = new Point(135, 241);
             txtCapacidad.MaxLength = 15;
             txtCapacidad.Name = "txtCapacidad";
             txtCapacidad.Size = new Size(74, 19);
@@ -238,7 +223,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Consolas", 12F);
             label5.ForeColor = SystemColors.ControlLightLight;
-            label5.Location = new Point(70, 266);
+            label5.Location = new Point(21, 241);
             label5.Name = "label5";
             label5.Size = new Size(99, 19);
             label5.TabIndex = 19;
@@ -249,7 +234,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(50, 66, 85);
-            ClientSize = new Size(520, 382);
+            ClientSize = new Size(407, 333);
             Controls.Add(label5);
             Controls.Add(txtCapacidad);
             Controls.Add(btnSalir);
@@ -270,7 +255,6 @@
             BarraTitulo.ResumeLayout(false);
             BarraTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)btnCerrar2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)btnCerrar).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -279,7 +263,6 @@
 
         private Panel BarraTitulo;
         private Label Rutas;
-        private PictureBox btnCerrar;
         private PictureBox btnCerrar2;
         private ComboBox cmbCiudad;
         private Label label1;

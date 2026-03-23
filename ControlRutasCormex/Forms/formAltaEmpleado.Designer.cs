@@ -57,7 +57,7 @@
             BarraTitulo.Dock = DockStyle.Top;
             BarraTitulo.Location = new Point(0, 0);
             BarraTitulo.Name = "BarraTitulo";
-            BarraTitulo.Size = new Size(520, 37);
+            BarraTitulo.Size = new Size(363, 37);
             BarraTitulo.TabIndex = 1;
             BarraTitulo.MouseDown += BarraTitulo_MouseDown;
             // 
@@ -77,7 +77,7 @@
             btnCerrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCerrar.Cursor = Cursors.Hand;
             btnCerrar.Image = Properties.Resources.cerrar1;
-            btnCerrar.Location = new Point(492, 6);
+            btnCerrar.Location = new Point(335, 6);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(25, 25);
             btnCerrar.SizeMode = PictureBoxSizeMode.Zoom;
@@ -92,7 +92,7 @@
             cmbCiudad.FlatStyle = FlatStyle.Flat;
             cmbCiudad.Font = new Font("Consolas", 12F);
             cmbCiudad.FormattingEnabled = true;
-            cmbCiudad.Location = new Point(189, 114);
+            cmbCiudad.Location = new Point(108, 54);
             cmbCiudad.Name = "cmbCiudad";
             cmbCiudad.Size = new Size(155, 27);
             cmbCiudad.TabIndex = 2;
@@ -103,7 +103,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Consolas", 12F);
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(111, 117);
+            label1.Location = new Point(30, 57);
             label1.Name = "label1";
             label1.Size = new Size(72, 19);
             label1.TabIndex = 3;
@@ -114,7 +114,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Consolas", 12F);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(111, 156);
+            label2.Location = new Point(30, 96);
             label2.Name = "label2";
             label2.Size = new Size(72, 19);
             label2.TabIndex = 4;
@@ -125,7 +125,7 @@
             txtNombre.BackColor = SystemColors.InactiveBorder;
             txtNombre.BorderStyle = BorderStyle.None;
             txtNombre.Font = new Font("Consolas", 12F);
-            txtNombre.Location = new Point(189, 156);
+            txtNombre.Location = new Point(108, 96);
             txtNombre.MaxLength = 15;
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(175, 19);
@@ -136,7 +136,7 @@
             txtApPaterno.BackColor = SystemColors.InactiveBorder;
             txtApPaterno.BorderStyle = BorderStyle.None;
             txtApPaterno.Font = new Font("Consolas", 12F);
-            txtApPaterno.Location = new Point(240, 184);
+            txtApPaterno.Location = new Point(159, 124);
             txtApPaterno.MaxLength = 15;
             txtApPaterno.Name = "txtApPaterno";
             txtApPaterno.Size = new Size(175, 19);
@@ -147,7 +147,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Consolas", 12F);
             label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(111, 184);
+            label3.Location = new Point(30, 124);
             label3.Name = "label3";
             label3.Size = new Size(117, 19);
             label3.TabIndex = 6;
@@ -158,7 +158,7 @@
             txtApMaterno.BackColor = SystemColors.InactiveBorder;
             txtApMaterno.BorderStyle = BorderStyle.None;
             txtApMaterno.Font = new Font("Consolas", 12F);
-            txtApMaterno.Location = new Point(240, 212);
+            txtApMaterno.Location = new Point(159, 152);
             txtApMaterno.MaxLength = 15;
             txtApMaterno.Name = "txtApMaterno";
             txtApMaterno.Size = new Size(175, 19);
@@ -169,7 +169,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Consolas", 12F);
             label4.ForeColor = SystemColors.ControlLightLight;
-            label4.Location = new Point(111, 212);
+            label4.Location = new Point(30, 152);
             label4.Name = "label4";
             label4.Size = new Size(117, 19);
             label4.TabIndex = 8;
@@ -180,7 +180,7 @@
             txtSueldo.BackColor = SystemColors.InactiveBorder;
             txtSueldo.BorderStyle = BorderStyle.None;
             txtSueldo.Font = new Font("Consolas", 12F);
-            txtSueldo.Location = new Point(222, 240);
+            txtSueldo.Location = new Point(141, 180);
             txtSueldo.MaxLength = 15;
             txtSueldo.Name = "txtSueldo";
             txtSueldo.Size = new Size(91, 19);
@@ -192,7 +192,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Consolas", 12F);
             label5.ForeColor = SystemColors.ControlLightLight;
-            label5.Location = new Point(111, 240);
+            label5.Location = new Point(30, 180);
             label5.Name = "label5";
             label5.Size = new Size(108, 19);
             label5.TabIndex = 10;
@@ -202,7 +202,7 @@
             // 
             dtpFechaNacimiento.CustomFormat = "yyyy-MM-dd";
             dtpFechaNacimiento.Format = DateTimePickerFormat.Custom;
-            dtpFechaNacimiento.Location = new Point(303, 265);
+            dtpFechaNacimiento.Location = new Point(222, 205);
             dtpFechaNacimiento.Name = "dtpFechaNacimiento";
             dtpFechaNacimiento.Size = new Size(122, 23);
             dtpFechaNacimiento.TabIndex = 12;
@@ -212,7 +212,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Consolas", 12F);
             label6.ForeColor = SystemColors.ControlLightLight;
-            label6.Location = new Point(108, 268);
+            label6.Location = new Point(27, 208);
             label6.Name = "label6";
             label6.Size = new Size(189, 19);
             label6.TabIndex = 13;
@@ -225,7 +225,7 @@
             btnGuardar.FlatAppearance.BorderSize = 0;
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.ForeColor = SystemColors.ControlLightLight;
-            btnGuardar.Location = new Point(335, 331);
+            btnGuardar.Location = new Point(93, 254);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(75, 23);
             btnGuardar.TabIndex = 14;
@@ -240,7 +240,7 @@
             btnSalir.FlatAppearance.BorderSize = 0;
             btnSalir.FlatStyle = FlatStyle.Flat;
             btnSalir.ForeColor = SystemColors.ControlLightLight;
-            btnSalir.Location = new Point(416, 331);
+            btnSalir.Location = new Point(174, 254);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(75, 23);
             btnSalir.TabIndex = 15;
@@ -253,7 +253,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(50, 66, 85);
-            ClientSize = new Size(520, 382);
+            ClientSize = new Size(363, 305);
             Controls.Add(btnSalir);
             Controls.Add(btnGuardar);
             Controls.Add(label6);

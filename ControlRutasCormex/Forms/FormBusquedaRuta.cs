@@ -188,7 +188,11 @@ namespace ControlRutasCormex.Forms
 
             if (dgvRutas.Columns[e.ColumnIndex].Name == "Editar")
             {
-                MessageBox.Show("Abrir formulario");
+                idRuta = Convert.ToInt32(dgvRutas.Rows[e.RowIndex].Cells["IdRuta"].Value);
+                FormModRutas frm = new FormModRutas(idRuta);
+                frm.ShowDialog();
+
+                CargarRutas(); // refrescar
             }
         }
         //prototipo de cargar datos en tiempo real al escribir en el filtro y al seleccionar una ciudad

@@ -13,46 +13,54 @@ using System.Windows.Forms;
 
 namespace ControlRutasCormex.Forms
 {
-    public partial class FormAltaRutas : Form
+    public partial class FormModRutas : Form
     {
-        public FormAltaRutas()
+        private int _idRuta;
+        public FormModRutas(int idRuta)
         {
             InitializeComponent();
+            _idRuta = idRuta;
         }
-
-        private void FormAltaRutas_Load(object sender, EventArgs e)
+        private void FormModRutas_Load(object sender, EventArgs e)
         {
             CargarCiudades();
-            CargarTipo();
-            ConfigurarPlaceholder();
-        }
-        #region Placeholder
-        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
-        private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPWStr)] string lParam);
+            CargarTipos();
 
-        const int CB_SETCUEBANNER = 0x1703; // Código para poner el texto sugerido
+            CargarRuta();
+            txtNombreRuta.Enabled = false;
+            cmbCiudad.Enabled = false;
 
-        private void ConfigurarPlaceholder()
-        {
-            // Texto Fantasma para los ComboBox
-            SendMessage(cmbCiudad.Handle, CB_SETCUEBANNER, 0, "Seleccione");
-            SendMessage(cmbChofer.Handle, CB_SETCUEBANNER, 0, "Seleccione");
-            SendMessage(cmbTipo.Handle, CB_SETCUEBANNER, 0, "Seleccione");
-        }
-        #endregion
-        #region Métodos de carga
-        private void CargarCiudades()
-        {
-            string query = "SELECT IdCiudad, Nombre FROM Ciudades ORDER BY Nombre ASC";
-            ConsultasBase.LlenarComboBox(cmbCiudad, query, "Nombre", "IdCiudad");
         }
 
-        private void CargarTipo()
+        private void CargarRuta()
         {
-            cmbTipo.Items.Clear();
-            cmbTipo.Items.Add("Personal");
-            cmbTipo.Items.Add("Artículos");
-            cmbTipo.SelectedIndex = -1; // "Seleccione"
+            using (var conexion = new Conexion().ObtenerConexion())
+            {
+                conexion.Open();
+
+                string query = @"
+                SELECT * FROM Rutas
+                WHERE IdRuta = @IdRuta";
+
+                SqlCommand cmd = new SqlCommand(query, conexion);
+                cmd.Parameters.AddWithValue("@IdRuta", _idRuta);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    txtNombreRuta.Text = reader["NombreRuta"].ToString();
+                    cmbCiudad.SelectedValue = reader["IdCiudad"];
+                    cmbTipo.SelectedIndex = Convert.ToInt32(reader["Tipo"]) - 1;
+                    txtCapacidad.Text = reader["Capacidad"].ToString();
+
+                    int idCiudad = Convert.ToInt32(reader["IdCiudad"]);
+                    CargarChoferes(idCiudad);
+
+                    cmbChofer.SelectedValue = reader["IdEmpleado"];
+                }
+            }
+
         }
 
         private void CargarChoferes(int idCiudad)
@@ -66,7 +74,7 @@ namespace ControlRutasCormex.Forms
                 {
                     conexion.Open();
 
-                    
+
                     string query = @"SELECT IdEmpleado, 
                              '(' + CAST(IdEmpleado AS VARCHAR) + ') ' + Nombre + ' ' + ApellidoPaterno AS NombreIdentificado 
                              FROM Empleados 
@@ -99,8 +107,23 @@ namespace ControlRutasCormex.Forms
                 }
             }
         }
-        #endregion
 
+
+
+        private void CargarTipos()
+        {
+            cmbTipo.Items.Clear();
+
+            cmbTipo.Items.Add("Personal");   // Índice 0 → Tipo = 1
+            cmbTipo.Items.Add("Artículos");  // Índice 1 → Tipo = 2
+
+            cmbTipo.SelectedIndex = -1; // Ninguna selección al inicio
+        }
+        private void CargarCiudades()
+        {
+            string query = "SELECT IdCiudad, Nombre FROM Ciudades ORDER BY Nombre ASC";
+            ConsultasBase.LlenarComboBox(cmbCiudad, query, "Nombre", "IdCiudad");
+        }
         private bool ValidarCampos()
         {
             //validar que se haya seleccionado una ciudad
@@ -164,34 +187,6 @@ namespace ControlRutasCormex.Forms
 
             return true;
         }
-        private void cmbCiudad_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbCiudad.SelectedValue == null)
-                return;
-
-            // Evitar el problema de DataRowView
-            if (cmbCiudad.SelectedValue is DataRowView)
-                return;
-
-            int idCiudad = Convert.ToInt32(cmbCiudad.SelectedValue);
-
-            if (idCiudad > 0)
-            {
-                CargarChoferes(idCiudad);
-            }
-            else
-            {
-                cmbChofer.DataSource = null;
-                cmbChofer.Items.Clear();
-            }
-        }
-
-        private void txtCapacidad_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Validacion vali = new Validacion();
-            e.KeyChar = Convert.ToChar(vali.SoloNumeros(e.KeyChar));
-        }
-
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos())
@@ -201,52 +196,36 @@ namespace ControlRutasCormex.Forms
             {
                 conexion.Open();
 
-                SqlCommand cmd = new SqlCommand("InsertarRuta", conexion);
-                cmd.CommandType = CommandType.StoredProcedure;
+                string query = @"
+                UPDATE Rutas
+                SET 
+                    Tipo = @Tipo,
+                    Capacidad = @Capacidad,
+                    IdEmpleado = @Empleado
+                WHERE IdRuta = @IdRuta";
 
-                cmd.Parameters.AddWithValue("@NombreRuta", txtNombreRuta.Text);
+                SqlCommand cmd = new SqlCommand(query, conexion);
+
                 cmd.Parameters.AddWithValue("@Tipo", cmbTipo.SelectedIndex + 1);
                 cmd.Parameters.AddWithValue("@Capacidad", int.Parse(txtCapacidad.Text));
-                cmd.Parameters.AddWithValue("@IdCiudad", cmbCiudad.SelectedValue);
-                cmd.Parameters.AddWithValue("@IdEmpleado", cmbChofer.SelectedValue);
+                cmd.Parameters.AddWithValue("@Empleado", cmbChofer.SelectedValue);
+                cmd.Parameters.AddWithValue("@IdRuta", _idRuta);
 
                 cmd.ExecuteNonQuery();
-
-                MessageBox.Show("Ruta guardada correctamente");
             }
 
-            LimpiarCampos();
+            MessageBox.Show("Ruta actualizada correctamente");
+            this.Close();
         }
 
-        private void LimpiarCampos()
-        {
-            cmbCiudad.SelectedIndex = -1;
-            cmbTipo.SelectedIndex = -1;
-            cmbChofer.DataSource = null;
-
-            txtNombreRuta.Clear();
-            txtCapacidad.Clear();
-
-            cmbCiudad.Focus();
-        }
-        #region mover formulario
-        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
-        private extern static void ReleaseCapture();
-        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private static extern void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
-        private void BarraTitulo_MouseDown(object sender, MouseEventArgs e)
-        {
-            ReleaseCapture();
-            SendMessage(this.Handle, 0x112, 0xf012, 0);
-        }
-        #endregion
         private void btnSalir_Click(object sender, EventArgs e)
         {
             var resultado = MessageBox.Show(
-               "¿Desea salir?",
-               "Confirmar",
+                "¿Desea salir?",
+                "Confirmar",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
+                MessageBoxIcon.Question
+            );
 
             if (resultado == DialogResult.Yes)
             {
@@ -267,6 +246,23 @@ namespace ControlRutasCormex.Forms
             {
                 this.Close();
             }
+        }
+        #region MoverFormulario
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private static extern void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private void BarraTitulo_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+        #endregion
+
+        private void txtCapacidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validacion vali = new Validacion();
+            e.KeyChar = Convert.ToChar(vali.SoloNumeros(e.KeyChar));
         }
     }
 }
