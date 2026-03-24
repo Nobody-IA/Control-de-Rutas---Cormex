@@ -238,7 +238,7 @@ namespace ControlRutasCormex.Forms
 
                 MessageBox.Show("Ruta guardada correctamente");
             }
-
+            lblEstatus.Visible = false;
             LimpiarCampos();
         }
 
